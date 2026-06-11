@@ -11,23 +11,41 @@ LANGUAGE = "ES"
 
 def normalize(expression: str) -> str:
     """Convert Unicode logic symbols to sympy-compatible syntax."""
+    expression = re.sub(
+        r"(.+?)\s*↔\s*(.+)",
+        lambda m: f"Equivalent({m.group(1)}, {m.group(2)})",
+        expression,
+    )
+
+    expression = re.sub(
+        r"(.+?)\s*<->\s*(.+)",
+        lambda m: f"Equivalent({m.group(1)}, {m.group(2)})",
+        expression,
+    )
+
     return (
         expression.replace("¬", "~")
         .replace("→", ">>")
-        .replace("↔", "^")  # biconditional, if needed
+        .replace("->", ">>")
         .replace("∧", "&")
         .replace("∨", "|")
     )
 
 
 def pretty(expr, parent=None):
-    from sympy.logic.boolalg import Implies, And, Or, Not
+    from sympy.logic.boolalg import Implies, And, Or, Not, Equivalent
 
     if expr.is_Symbol:
         return str(expr)
     elif isinstance(expr, Not):
         inner = pretty(expr.args[0], parent=Not)
         return f"¬{inner}"
+    elif isinstance(expr, Equivalent):
+        a, b = expr.args
+        inner = f"{pretty(a, parent=Equivalent)} ↔ {pretty(b, parent=Equivalent)}"
+        if parent in (And, Or, Not, Implies):
+            return f"({inner})"
+        return inner
     elif isinstance(expr, And):
         result = " ∧ ".join(sorted(pretty(a, parent=And) for a in expr.args))
         if parent in (Or, Implies):
@@ -138,7 +156,14 @@ def evaluate(expresions, format="md"):
 
 # fmt: off
 expresions = [
-    "(p∨¬q)→(¬p∧q)"
+    "p -> q",
+    "p <-> q",
+    "(p∨¬q)→(¬p∧q)",
+    "((p & q) | (p & r)) >> t",
+    "(p & q) >> r",
+    "((p | q) & ~r) >> s",
+    "(((p & q) | (r & ~s)) >> (t | u)) & ((p >> r) | (q >> s))",
+
 ]
 # fmt: on
 evaluate(expresions, "md")
