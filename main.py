@@ -19,6 +19,11 @@ def src_files(filename):
     return send_from_directory(os.path.join("web", "src"), filename)
 
 
+@app.route("/public/<path:filename>")
+def public_files(filename):
+    return send_from_directory(os.path.join("web", "public"), filename)
+
+
 @app.route("/evaluate", methods=["POST"])
 def evaluate_web():
     data = request.get_json()

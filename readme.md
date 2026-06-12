@@ -2,6 +2,10 @@
 
 A Python tool that generates truth tables from propositional logic expressions using **SymPy**. Available in two modes: a **command-line script** that exports to Markdown/CSV, and a **web interface** powered by Flask and React.
 
+## Application available in
+
+https://truth-tables-generator.onrender.com/ 
+
 ## Features
 
 - Parse logical expressions using Unicode symbols (¬ ∧ ∨ → ↔) or ASCII equivalents
