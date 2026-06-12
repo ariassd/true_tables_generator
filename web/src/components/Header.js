@@ -1,7 +1,6 @@
 "use strict";
 
 const Header = ({ dark, onToggle }) => {
-  const year = new Date().getFullYear();
   return (
     <header>
       <div className="header-inner">

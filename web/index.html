@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -7,7 +8,13 @@
   <style>
     @import url('https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;600&family=Inter:wght@300;400;500;600&display=swap');
 
-    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    *,
+    *::before,
+    *::after {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
 
     :root {
       --bg: #0f1117;
@@ -31,7 +38,12 @@
       padding: 2rem 1rem;
     }
 
-    header { max-width: 100%; margin: 0 0 2.5rem; padding: 1rem; }
+    header {
+      max-width: 100%;
+      margin: 0 0 2.5rem;
+      padding: 1rem;
+    }
+
     header {
       position: sticky;
       top: 0;
@@ -51,7 +63,11 @@
       flex-wrap: wrap;
     }
 
-    .input-wrap { flex: 1; min-width: 260px; position: relative; }
+    .input-wrap {
+      flex: 1;
+      min-width: 260px;
+      position: relative;
+    }
 
     input[type="text"] {
       width: 100%;
@@ -66,8 +82,13 @@
       transition: border-color 0.15s;
     }
 
-    input[type="text"]:focus { border-color: var(--accent); }
-    input[type="text"]::placeholder { color: var(--muted); }
+    input[type="text"]:focus {
+      border-color: var(--accent);
+    }
+
+    input[type="text"]::placeholder {
+      color: var(--muted);
+    }
 
     button {
       background: var(--accent);
@@ -83,8 +104,14 @@
       white-space: nowrap;
     }
 
-    button:hover { opacity: 0.85; }
-    button:disabled { opacity: 0.4; cursor: not-allowed; }
+    button:hover {
+      opacity: 0.85;
+    }
+
+    button:disabled {
+      opacity: 0.4;
+      cursor: not-allowed;
+    }
 
     .symbols {
       max-width: 860px;
@@ -95,7 +122,11 @@
       align-items: center;
     }
 
-    .symbols span { font-size: 0.75rem; color: var(--muted); margin-right: 0.25rem; }
+    .symbols span {
+      font-size: 0.75rem;
+      color: var(--muted);
+      margin-right: 0.25rem;
+    }
 
     .sym-btn {
       background: var(--surface);
@@ -109,9 +140,15 @@
       transition: border-color 0.15s, background 0.15s;
     }
 
-    .sym-btn:hover { border-color: var(--accent); background: var(--accent-dim); }
+    .sym-btn:hover {
+      border-color: var(--accent);
+      background: var(--accent-dim);
+    }
 
-    .result { max-width: 860px; margin: 0 auto; }
+    .result {
+      max-width: 860px;
+      margin: 0 auto;
+    }
 
     .expr-label {
       font-family: 'JetBrains Mono', monospace;
@@ -139,7 +176,9 @@
       font-size: 0.88rem;
     }
 
-    thead tr { background: var(--header-bg); }
+    thead tr {
+      background: var(--header-bg);
+    }
 
     th {
       padding: 0.7rem 1.1rem;
@@ -150,8 +189,13 @@
       white-space: nowrap;
     }
 
-    th.var-col { color: var(--var-color); }
-    th.last-col { color: var(--accent); }
+    th.var-col {
+      color: var(--var-color);
+    }
+
+    th.last-col {
+      color: var(--accent);
+    }
 
     td {
       padding: 0.55rem 1.1rem;
@@ -160,11 +204,23 @@
       transition: background 0.1s;
     }
 
-    tbody tr:last-child td { border-bottom: none; }
-    tbody tr:hover td { background: var(--surface); }
+    tbody tr:last-child td {
+      border-bottom: none;
+    }
 
-    .val-t { color: var(--true-color); font-weight: 600; }
-    .val-f { color: var(--false-color); font-weight: 600; }
+    tbody tr:hover td {
+      background: var(--surface);
+    }
+
+    .val-t {
+      color: var(--true-color);
+      font-weight: 600;
+    }
+
+    .val-f {
+      color: var(--false-color);
+      font-weight: 600;
+    }
 
     .error {
       background: #2d1515;
@@ -179,7 +235,8 @@
 
     .spinner {
       display: inline-block;
-      width: 16px; height: 16px;
+      width: 16px;
+      height: 16px;
       border: 2px solid var(--border);
       border-top-color: var(--accent);
       border-radius: 50%;
@@ -188,7 +245,11 @@
       margin-right: 0.5rem;
     }
 
-    @keyframes spin { to { transform: rotate(360deg); } }
+    @keyframes spin {
+      to {
+        transform: rotate(360deg);
+      }
+    }
 
     body.light {
       --bg: #f5f6fa;
@@ -204,7 +265,9 @@
       --var-color: #2563eb;
     }
 
-    body { transition: background 0.2s, color 0.2s; }
+    body {
+      transition: background 0.2s, color 0.2s;
+    }
 
     .theme-btn {
       background: var(--surface);
@@ -218,12 +281,38 @@
       line-height: 1;
     }
 
-    .theme-btn:hover { border-color: var(--accent); opacity: 1; }
+    .theme-btn:hover {
+      border-color: var(--accent);
+      opacity: 1;
+    }
 
-    header > div, header > button { max-width: 860px; }
-    .header-inner { max-width: 860px; margin: 0 auto; display: flex; align-items: flex-start; justify-content: space-between; width: 100%; }
-    .header-text h1 { font-family: 'JetBrains Mono', monospace; font-size: 1.4rem; font-weight: 600; color: var(--accent); letter-spacing: -0.02em; margin-bottom: 0.25rem; }
-    .header-text p { font-size: 0.85rem; color: var(--muted); }
+    header>div,
+    header>button {
+      max-width: 860px;
+    }
+
+    .header-inner {
+      max-width: 860px;
+      margin: 0 auto;
+      display: flex;
+      align-items: flex-start;
+      justify-content: space-between;
+      width: 100%;
+    }
+
+    .header-text h1 {
+      font-family: 'JetBrains Mono', monospace;
+      font-size: 1.4rem;
+      font-weight: 600;
+      color: var(--accent);
+      letter-spacing: -0.02em;
+      margin-bottom: 0.25rem;
+    }
+
+    .header-text p {
+      font-size: 0.85rem;
+      color: var(--muted);
+    }
 
 
     footer {
@@ -243,12 +332,17 @@
       z-index: 100;
     }
 
-    .footer-sep { opacity: 0.4; }
+    .footer-sep {
+      opacity: 0.4;
+    }
 
-    body { padding-bottom: 3rem; }
+    body {
+      padding-bottom: 3rem;
+    }
   </style>
 </head>
-<body>
+
+<body class="light">
   <div class="app"></div>
 
   <!-- React -->
@@ -263,4 +357,5 @@
   <script type="text/babel" src="./src/components/Footer.js"></script>
   <script type="text/babel" src="./src/app.js"></script>
 </body>
+
 </html>

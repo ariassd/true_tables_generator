@@ -8,7 +8,7 @@ class App extends React.Component {
       history: [],
       error: null,
       loading: false,
-      dark: true,
+      dark: false,
     };
     this.inputRef = React.createRef();
   }

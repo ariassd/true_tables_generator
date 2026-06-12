@@ -1,7 +1,9 @@
 import os
+from dotenv import load_dotenv
 from flask import Flask, request, jsonify, render_template, send_from_directory, abort
 from src.truth_table import compute_truth_table
 
+load_dotenv()
 
 app = Flask(__name__, template_folder="web")
 EXPOSED_DIR = os.path.abspath("./web")
@@ -31,4 +33,6 @@ def evaluate_web():
 
 
 if __name__ == "__main__":
-    app.run(debug=True, port=5000)
+    is_develop = os.getenv("APP_ENV", "DEV") == "DEV"
+    port = int(os.getenv("PORT", 8000))
+    app.run(debug=is_develop, host="0.0.0.0", port=port)

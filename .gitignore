@@ -6,6 +6,7 @@ __pycache__/
 .ruff_cache/
 .black_cache/
 uploads
+result.md
 
 # --- Virtual Environments ---
 .venv/

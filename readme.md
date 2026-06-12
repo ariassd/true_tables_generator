@@ -87,9 +87,15 @@ The web interface lets you type expressions, evaluate them interactively, and br
 
 ### Start the server
 
+**For local development**
 ```bash
-python app.py
+python main.py
 ```
+**For production environment**
+```bash
+gunicorn -w 4 -b 0.0.0.0:8000 main:app
+```
+
 
 Then open your browser at:
 
@@ -99,7 +105,7 @@ http://localhost:5000
 
 ### How it works
 
-- `app.py` starts a Flask server that serves the React frontend from the `web/` folder
+- `main.py` starts a Flask server that serves the React frontend from the `web/` folder
 - The frontend is built with React 17 and transpiled in-browser by Babel — no build step required
 - Typing an expression and clicking **Evaluate** (or pressing Enter) sends a `POST /evaluate` request to Flask
 - Flask evaluates the expression with SymPy and returns the truth table as JSON
